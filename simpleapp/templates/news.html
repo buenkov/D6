@@ -1,0 +1,29 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %} 
+{% load nportal_filters %}
+<!-- Название у нас будет products -->
+{% block title %}
+Posts
+{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<div>
+<h1>Все новости</h1>
+В повестке {{posts_count}} новостей
+{% if posts %}
+	{% for post in posts %}
+		<hr>
+		<h2>{{ post.title|censor }}</h2>
+		Дата публикации: {{ post.create_date|date:'M d Y' }}
+		<br>
+		{{post.text|truncatewords:20}}
+	{% endfor %}
+{% else %}
+<h2>Новостей нет!</h2>
+{% endif %}
+
+
+</div>
+
+{% endblock content %}
